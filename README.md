@@ -4,7 +4,7 @@ MailBot służący do wysyłania automatycznie maili które są zapisane w pliku
 
 ## Główno dowodzący : Dund33
 
-#Twórcy 
+# Twórcy 
 
 | Część bota | nickname 
 | ---------- | -------
