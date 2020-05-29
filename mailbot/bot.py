@@ -20,7 +20,7 @@ def start():
     json_data = tuple.convertToJson(lista, jsonFile)
     print(json_data)
     print("Sending mails...")
-    #sendMails(mails, messageFile)
+    # sendMails(mails, messageFile)
     print("Done!")
 
 def generateMessage(file, toMail):

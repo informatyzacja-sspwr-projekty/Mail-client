@@ -34,4 +34,5 @@ def convertToJson(tupleList, fileToWrite):
     json_data = json.dumps(dict)
     with open(fileToWrite, 'w+') as outfile:
         json.dump(dict, outfile)
+
     return json_data
