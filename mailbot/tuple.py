@@ -12,28 +12,29 @@ def createTuple(filename):
     patternMail = re.compile("mail:", re.IGNORECASE)
     with open(filename, "rt") as myFile:
         for line in myFile:
-            if patternName.search(line) is not None:
+            if patternName.search(line):
                 userName = line.split()[1].split(",")[0]
-            elif patternMail.search(line) is not None:
+            elif patternMail.search(line):
                 userMail = line.split()[1]
 
-            if userName is not None and userMail is not None:
+            if userName and userMail:
                 tupleList.append((userName, userMail, uuid.uuid4()))
                 userName = None
                 userMail = None
 
     return tupleList
 
+
 def convertToDict(tuple):
-    return { "Name": tuple[0], "Mail": tuple[1], "UUID": str(tuple[2]) }
+    return {"Name": tuple[0], "Mail": tuple[1], "UUID": str(tuple[2])}
+
 
 def convertToJson(tupleList, fileToWrite):
-    dict = {}
-    dict['Accounts'] = []
+    dict = {"Accounts": []}
     for tuple in tupleList:
-        dict['Accounts'].append(convertToDict(tuple))
+        dict["Accounts"].append(convertToDict(tuple))
     json_data = json.dumps(dict)
-    with open(fileToWrite, 'w+') as outfile:
-        json.dump(dict, outfile)
+    with open(fileToWrite, "w+") as outfile:
+        json.dump(dict, outfile, indent=2)
 
     return json_data
