@@ -11,4 +11,10 @@ MailBot służący do wysyłania automatycznie maili które są zapisane w pliku
 | Python | Byczax
 | Python | FilipJQ77
 | API | Dund33
-| API | 
+| API | karolkicinski
+
+# Potrzebne dane
+
+* Plik csv z nazwą użytkownika oraz mailem
+* Plik z wiadomością
+* Plik z loginem oraz hasłem do maila
