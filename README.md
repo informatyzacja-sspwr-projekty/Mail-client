@@ -2,7 +2,9 @@
 
 MailBot służący do wysyłania automatycznie maili które są zapisane w pliku csv.
 
-## Główno dowodzący : Dund33
+## Koordynator Projektu  
+
+### Dund33
 
 # Twórcy
 
