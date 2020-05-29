@@ -23,15 +23,15 @@ MailBot służący do wysyłania automatycznie maili które są zapisane w pliku
 
 ## Wczytanie danych
 
-* (1) Wczytanie listy z mailami oraz nazwą użytkownika
-* (2) Wczytanie maila z którego będziemy wysyłać, login, hasło, serwer
-* (3) Wczytanie wiadomości którą chcemy wysłać
+* (1) :black_square_button: Wczytanie listy z mailami oraz nazwą użytkownika
+* (2) :black_square_button: Wczytanie maila z którego będziemy wysyłać, login, hasło, serwer
+* (3) :black_square_button: Wczytanie wiadomości którą chcemy wysłać
 
 ## przetworzenie danych
 
-* (1) Wygenerowanie listy *Krotek* < [(username1,email1,uuid1), (username2,email2,uuid2)] >
-* (2) Wygenerowanie uuid do maili
-* (3) Przekonwertowanie Krotek na słownik Python dict =  ('username' : 'nazwa_użytkownika', 'email': 'email''uuid':'uuid')  
-* (4) Przekonwertowanie słownika do JSON
-* (4) Przekonwertowanie klasy do JSON
-* (5) Zapisanie tego do JSON
+* (1) :speech_balloon: Wygenerowanie listy *Krotek* < [(username1,email1,uuid1), (username2,email2,uuid2)] >
+* (2) :speech_balloon: Wygenerowanie uuid do maili
+* (3) :black_square_button: Przekonwertowanie Krotek na słownik Python dict =  ('username' : 'nazwa_użytkownika', 'email': 'email''uuid':'uuid')  
+* (4) :black_square_button: Przekonwertowanie słownika do JSON
+* (4) :black_square_button: Przekonwertowanie klasy do JSON
+* (5) :black_square_button: Zapisanie tego do JSON
