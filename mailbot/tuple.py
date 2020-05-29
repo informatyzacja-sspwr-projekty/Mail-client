@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
+import json
 import re
 import uuid
-import json
+
 
 def createTuple(filename):
     userName = None
@@ -24,7 +25,7 @@ def createTuple(filename):
     return tupleList
 
 def convertToDict(tuple):
-    return { "Name": tuple[0], "Mail": tuple[1], "UUID": str(tuple[2])}
+    return { "Name": tuple[0], "Mail": tuple[1], "UUID": str(tuple[2]) }
 
 def convertToJson(tupleList, fileToWrite):
     dict = {}
