@@ -1,11 +1,13 @@
 #-*- coding: utf-8 -*-
 import re
 import smtplib
+import mailbot.tuple as tuple
 from email.message import EmailMessage
 
 mailUser = "MAIL"
 mailPassword = "HASLO OD MAILA"
 dataFile = "mail.txt"
+jsonFile = "mails.json"
 messageFile = "message.txt"
 sendingMail = smtplib.SMTP('smtp.gmail.com', 587)
 
@@ -13,9 +15,12 @@ sendingMail = smtplib.SMTP('smtp.gmail.com', 587)
 def start():
     print("Starting procedure...")
     print("Loading mails...")
-    mails = loadMails()
+    lista = tuple.createTuple(dataFile)
+    print(lista)
+    json_data = tuple.convertToJson(lista, jsonFile)
+    print(json_data)
     print("Sending mails...")
-    sendMails(mails, messageFile)
+    #sendMails(mails, messageFile)
     print("Done!")
 
 def generateMessage(file, toMail):
@@ -28,19 +33,6 @@ def generateMessage(file, toMail):
     msg['From'] = mailUser
     msg['To'] = toMail
     return msg
-
-def loadMails():
-    filename = dataFile
-    pattern = re.compile("mail:", re.IGNORECASE)
-    mailList = []
-
-    with open(filename, "rt") as myFile:
-        for line in myFile:
-            if pattern.search(line) is not None:
-                mail = line.split()
-                if mail[1] is not None:
-                    mailList.append(mail[1])
-    return mailList
 
 def sendMails(mailList, message):
     sendingMail.starttls()
