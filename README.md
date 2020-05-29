@@ -18,7 +18,7 @@ MailBot służący do wysyłania automatycznie maili które są zapisane w pliku
 # Potrzebne dane
 
 * Plik csv z nazwą użytkownika oraz mailem
-* Plik z wiadomością
+* Plik z wiadomością (odpowiednia konstrukcja)
 * Plik z loginem oraz hasłem do maila
 
 # Python Bot
