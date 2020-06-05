@@ -18,29 +18,31 @@ def createTuple(filename):
                 userMail = line.split()[1]
 
             if userName and userMail:
-                tupleList.append((userName, userMail, uuid.uuid4()))
+                tupleList.append((userName, userMail, str(uuid.uuid4())))
                 userName = None
                 userMail = None
 
     return tupleList
 
 
-def convertToDict(tuple):
-    return {"Name": tuple[0], "Mail": tuple[1], "UUID": str(tuple[2])}
+def convertToDict(tuples):
+    dict_list = []
+    for tuple in tuples:
+        dict_list.append({"Name": tuple[0], "Mail": tuple[1], "UUID": tuple[2]})
+    return dict_list
 
 
-def convertToJson(tupleList, fileToWrite: str):
-    dict = {"Accounts": []}
-    for tuple in tupleList:
-        dict["Accounts"].append(convertToDict(tuple))
-    json_data = json.dumps(dict)
-    with open(fileToWrite, "w+") as outfile:
-        json.dump(dict, outfile, indent=2)
-
-    return json_data
+def convertToJson(dict_list, fileToWrite: str):
+    # dict = {"Accounts": []}
+    # for tuple in tupleList:
+    #     dict["Accounts"].append(convertToDict(tuple))
+    # json_data = json.dumps(dict)
+    with open(fileToWrite, "w") as outfile:
+        json.dump(dict_list, outfile, indent=2)
+    # return json_data
 
 
 if __name__ == "__main__":
-    tuple = createTuple("TU WSTAW NAZWE PLIKU")
+    tuple = createTuple("Ewidencja_adresow_mailowych.txt")
     dictt = convertToDict(tuple)
     jsonn = convertToJson(dictt, "results.json")
