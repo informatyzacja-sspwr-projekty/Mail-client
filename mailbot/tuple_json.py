@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import json
 import re
 import uuid
@@ -21,7 +20,6 @@ def createTuple(filename):
                 tupleList.append((userName, userMail, str(uuid.uuid4())))
                 userName = None
                 userMail = None
-
     return tupleList
 
 
@@ -43,6 +41,6 @@ def convertToJson(dict_list, fileToWrite: str):
 
 
 if __name__ == "__main__":
-    tuple = createTuple("Ewidencja_adresow_mailowych.txt")
+    tuple = createTuple("aaa.txt")
     dictt = convertToDict(tuple)
     jsonn = convertToJson(dictt, "results.json")

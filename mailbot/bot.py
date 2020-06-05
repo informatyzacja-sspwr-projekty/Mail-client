@@ -1,51 +1,36 @@
-#-*- coding: utf-8 -*-
-import re
 import smtplib
-import mailbot.tuple as tuple
+import json
 from email.message import EmailMessage
 
-mailUser = "MAIL"
-mailPassword = "HASLO OD MAILA"
-dataFile = "mail.txt"
-jsonFile = "mails.json"
-messageFile = "message.txt"
-sendingMail = smtplib.SMTP('smtp.gmail.com', 587)
+mail_user = "informatyzacja@student.pwr.edu.pl"
+mail_password = ""
+sending_mail = smtplib.SMTP('student.pwr.edu.pl', 587)
 
 
-def start():
-    print("Starting procedure...")
-    print("Loading mails...")
-    lista = tuple.createTuple(dataFile)
-    print(lista)
-    json_data = tuple.convertToJson(lista, jsonFile)
-    print(json_data)
-    print("Sending mails...")
-    # sendMails(mails, messageFile)
-    print("Done!")
+class MailReceiver:
+    def __init__(self, receiver_properties: dict):
+        self.name = receiver_properties["Name"]
+        self.mail = receiver_properties["Mail"]
+        self.uuid = receiver_properties["UUID"]
 
-def generateMessage(file, toMail):
-    with open(file) as fp:
-        msg = EmailMessage()
-        msg.set_content(fp.read())
-    # from == the sender's email address
-    # to == the recipient's email address
-    msg['Subject'] = "To jest temat"
-    msg['From'] = mailUser
-    msg['To'] = toMail
-    return msg
 
-def sendMails(mailList, message):
-    sendingMail.starttls()
-    sendingMail.login(mailUser, mailPassword)
+def read_json(filename: str):
+    with open(filename) as file:
+        data = json.load(file)
+    return data
 
-    for mail in mailList:
-        try:
-            sendingMail.sendmail(mailUser, mail, generateMessage(message, mail).as_string())
-        except:
-            print(mail)
-            print("An error occurred!")
 
-    sendingMail.quit()
+def send_mails(receivers):
+    for receiver in receivers:
+        message = EmailMessage()
+        message['Subject'] = "TEMAT"
+        message['From'] = mail_user
+        message['To'] = receiver.mail
+        message.set_content("WIADOMOŚĆ")
+        sending_mail.sendmail(mail_user, receiver.mail, message.as_string())
+
 
 if __name__ == "__main__":
-    start()
+    user_data = read_json("results.json")  # plik json z mailami
+    mail_receivers = map(lambda x: MailReceiver(x), user_data)
+    send_mails(mail_receivers)
