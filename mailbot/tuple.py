@@ -29,7 +29,7 @@ def convertToDict(tuple):
     return {"Name": tuple[0], "Mail": tuple[1], "UUID": str(tuple[2])}
 
 
-def convertToJson(tupleList, fileToWrite):
+def convertToJson(tupleList, fileToWrite: str):
     dict = {"Accounts": []}
     for tuple in tupleList:
         dict["Accounts"].append(convertToDict(tuple))
@@ -38,3 +38,9 @@ def convertToJson(tupleList, fileToWrite):
         json.dump(dict, outfile, indent=2)
 
     return json_data
+
+
+if __name__ == "__main__":
+    tuple = createTuple("TU WSTAW NAZWE PLIKU")
+    dictt = convertToDict(tuple)
+    jsonn = convertToJson(dictt, "results.json")
