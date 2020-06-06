@@ -6,7 +6,8 @@
     "Port": 587,
 
     "Convert_To_JSON":"<file name>",
-    "Message":"<file name>"
+    "Subject":"<Subject>",
+    "Message_content":"<file name>"
 
   }
 ]

@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: latin-1 -*-
 import smtplib
 import json
 from email.message import EmailMessage
@@ -16,12 +18,9 @@ def read_json(filename: str):
     return data
 
 
-def message_content(mail_data, uuid, user):
-    filename = mail_data["Message_content"]
-    file = open(filename, "rt")
-    message = file.read()
-    message.replace("<user>", user)
-    message.replace("<link>", ("<part 1 link>" + uuid))
+def message_content(mail_data, uuid, user, message):
+    message = message.replace("<user>", user)
+    message = message.replace("<link>", ("<Link z API>" + uuid))
     return message
 
 
@@ -30,6 +29,9 @@ def message_content(mail_data, uuid, user):
 def send_mails(mail_data, receivers):
     mail_user = mail_data["Mail"]
     mail_password = mail_data["Password"]
+    filename = mail_data["Message_content"]
+    with open(filename, encoding="utf-8", mode="rt") as file:
+        my_message = file.read()
 
     with smtplib.SMTP(mail_data["Host"], mail_data["Port"]) as sending_mail:
         sending_mail.starttls()  # https://docs.python.org/3/library/smtplib.html#smtplib.SMTP.starttls
@@ -38,10 +40,9 @@ def send_mails(mail_data, receivers):
         for receiver in receivers:
             message = EmailMessage()
             message['Subject'] = mail_data["Subject"]
-            msg_content = message_content(mail_data, receiver.uuid, receiver.name)
+            msg_content = message_content(mail_data, receiver.uuid, receiver.name, my_message)
             message.set_content(msg_content)
-            print(msg_content)
-            # sending_mail.sendmail(mail_user, receiver.mail, message.as_string())
+            sending_mail.sendmail(mail_user, receiver.mail, message.as_string())
 
 
 if __name__ == "__main__":
