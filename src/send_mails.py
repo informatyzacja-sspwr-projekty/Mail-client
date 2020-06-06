@@ -31,6 +31,6 @@ def send_mails(receivers, subject: str, msg_content: str):
 
 
 if __name__ == "__main__":
-    user_data = read_json("results.json")  # plik json z mailami
+    user_data = read_json("../results.json")  # plik json z mailami
     mail_receivers = map(lambda x: MailReceiver(x), user_data)
     send_mails(mail_receivers, "TEMAT", "WIADOMOSC")

@@ -33,4 +33,4 @@ def convert_file_to_json(filename, json_filename):
 
 
 if __name__ == "__main__":
-    convert_file_to_json("aaa.txt", "results.json")
+    convert_file_to_json("../aaa.txt", "results.json")
