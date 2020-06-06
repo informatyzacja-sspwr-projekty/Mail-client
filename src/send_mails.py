@@ -33,6 +33,6 @@ def send_mails(mail_data, receivers, subject: str, msg_content: str):
 
 if __name__ == "__main__":
     mail_dataa = read_json("../mail_login.json")[0]  # [0] to get the dict
-    user_data = read_json("../results.json")  # mail receivers json file
+    user_data = read_json("../Conversion_results.json")  # mail receivers json file
     mail_receivers = map(lambda x: MailReceiver(x), user_data)
     send_mails(mail_dataa, mail_receivers, "TEMAT", "WIADOMOSC")

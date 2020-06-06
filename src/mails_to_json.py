@@ -3,7 +3,8 @@ import re
 import uuid
 
 
-def convert_file_to_dict_list(filename):
+def convert_file_to_dict_list(mail_data):
+    filename = mail_data["Convert_To_JSON"]
     username = None
     user_email = None
     dict_list = []
@@ -31,6 +32,11 @@ def convert_file_to_json(filename, json_filename):
     dictionary_list = convert_file_to_dict_list(filename)
     convert_dict_list_to_json(dictionary_list, json_filename)
 
-
+def read_json(filename: str):
+    with open(filename) as file:
+        data = json.load(file)
+    return data
+    
 if __name__ == "__main__":
-    convert_file_to_json("PLIK", "JSON")
+    MyFile = read_json("../mail_login.json")[0] 
+    convert_file_to_json(MyFile, "Conversion_results.json")
