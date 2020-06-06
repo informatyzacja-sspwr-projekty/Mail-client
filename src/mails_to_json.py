@@ -22,15 +22,15 @@ def convert_file_to_dict_list(filename):
     return dict_list
 
 
-def convert_dict_to_json(dict_list, filename: str):
+def convert_dict_list_to_json(dict_list, filename: str):
     with open(filename, "w") as file:
         json.dump(dict_list, file, indent=2)
 
 
 def convert_file_to_json(filename, json_filename):
     dictionary_list = convert_file_to_dict_list(filename)
-    convert_dict_to_json(dictionary_list, json_filename)
+    convert_dict_list_to_json(dictionary_list, json_filename)
 
 
 if __name__ == "__main__":
-    convert_file_to_json("../aaa.txt", "results.json")
+    convert_file_to_json("PLIK", "JSON")
