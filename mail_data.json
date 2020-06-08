@@ -4,9 +4,9 @@
     "Password": "",
     "Host": "student.pwr.edu.pl",
     "Port": 587,
-    "TXTFileToJSON": "<txt file with mails path>",
-    "JSONFile": "<JSON results file path>",
-    "Subject": "<Subject>",
-    "MessageContentFile": "<File path>"
+    "MailsTxtFile": "<txt file with mails path>",
+    "MailsJsonFile": "<json file with mails path>",
+    "Subject": "<subject>",
+    "MessageContentFile": "<file with message path>"
   }
 ]

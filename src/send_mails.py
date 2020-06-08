@@ -40,6 +40,7 @@ def send_mails(mail_data_dict, receivers, link):
 
 if __name__ == "__main__":
     mail_dict = read_json("../mail_data.json")[0]  # [0] to get the dict
-    user_data = read_json(mail_dict["JSONFile"])  # mail receivers json file
+    user_data = read_json(mail_dict["MailsJsonFile"])  # mail receivers json file
     mail_receivers = map(lambda x: MailReceiver(x), user_data)
     send_mails(mail_dict, mail_receivers, "https://www.unclelukes.site:33862/Confirm?uuid=")
+    print("Mails have been sent!")

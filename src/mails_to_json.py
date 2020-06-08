@@ -3,8 +3,8 @@ import re
 import uuid
 
 
-def convert_file_to_dict_list(mail_data):
-    filename = mail_data["TXTFileToJSON"]
+def convert_file_to_dict_list(mail_data_dict):
+    filename = mail_data_dict["MailsTxtFile"]
     username = None
     user_email = None
     dict_list = []
@@ -41,4 +41,5 @@ def read_json(filename: str):
 
 if __name__ == "__main__":
     mail_dict = read_json("../mail_data.json")[0]
-    convert_file_to_json(mail_dict, mail_dict["JSONFile"])
+    convert_file_to_json(mail_dict, mail_dict["MailsJsonFile"])
+    print("Converted!")
