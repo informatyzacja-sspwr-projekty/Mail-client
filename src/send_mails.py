@@ -1,3 +1,4 @@
+import time
 import smtplib
 import json
 from email.message import EmailMessage
@@ -35,7 +36,12 @@ def send_mails(mail_data_dict, receivers, link):
             message['Subject'] = mail_data_dict["Subject"]
             content = generate_message_content(receiver.name, receiver.uuid, link, message_content)
             message.set_content(content)
-            sending_mail.sendmail(mail_user, receiver.mail, message.as_string())
+            time.sleep(10)
+            try:
+                sending_mail.sendmail(mail_user, receiver.mail, message.as_string())
+                print(f"{receiver.mail} sent")
+            except Exception as e:
+                print(f"{receiver.mail} not sent, exception: {e}")
 
 
 if __name__ == "__main__":
