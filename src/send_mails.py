@@ -58,11 +58,11 @@ def send_mails(mail_data_dict, receivers, link):
 
 
 if __name__ == "__main__":
-    mail_dict = utils.load_config(
+    config = utils.load_config(
         "../mail_data.json")[0]  # [0] to get the dict
     # mail receivers json file
-    user_data = utils.read_json(mail_dict["mails_json_file"])
+    user_data = utils.read_json(config["mails_json_file"])
     mail_receivers = map(lambda x: MailReceiver(x), user_data)
-    send_mails(mail_dict, mail_receivers,
+    send_mails(config, mail_receivers,
                "https://www.unclelukes.site:33862/Confirm?uuid=")
     print("Mails have been sent!")
