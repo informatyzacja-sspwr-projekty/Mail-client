@@ -19,6 +19,8 @@ MailBot służy do wysyłania automatycznie maili o określonej treści do odbio
     "mails_json_file": "mails.json",
     "subject": "Informatyzacja mailbot test",
     "mail_template": "mail_template.txt",
+    "attachments_subject": "Informatyzacja attachment test",
+    "attachment_mail_text": "Logs from mailbot",
     "confirm_link": "https://ewidencjamaili.samorzad.pwr.edu.pl/confirm?uuid="
   }
 ]
@@ -32,6 +34,8 @@ MailBot służy do wysyłania automatycznie maili o określonej treści do odbio
 - `mails_json_file` - nazwa pliku `.json` (w katalogu `data`), do której ma być zapisana struktura danych zawierająca nazwy użytkowników, adresy e-mail oraz ich UUID,
 - `subject` - temat wiadomości
 - `mail_template` - nazwa pliku `.txt`, w którym jest szablon wiadomości przesyłanej do użytkowników (struktura pliku poniżej),
+- `attachments_subject` - temat wiadomości zwrotnej do nadawcy zawierającej załączniki z wynikami działania bota
+- `attachment_mail_text` - tekst powyższej wiadomości
 - `confirm_link` - link do strony służącej do potwierdzania użytkowników z przygotowanym już wcześniej polem w adresie do przyjęcia żądania `HTTP GET`
 
 ### Szablon pliku pod `mails_txt_file`
@@ -63,11 +67,11 @@ Wystarczy wpisać polecenie:
 
     python index.py
 
-Należy być jednak ostrożnym, gdyż przy każdym uruchomieniu generowane jest nowe UUID każdego użytkownika, rozsyłane także zaczynają być maile.
+Po wysłaniu maili do wszystkich podanych odbiorców następuje wysłanie maila z załącznikami o wynikach działania bota do nadawcy tych wiadomości - co zabezpiecza przed sytuacją stracenia wszystkich danych przez ponowne uruchomienie bota.
 
 ## Po uruchomieniu
 
-Koniecznie zapisz w bezpiecznym miejscu pliki
+Te pliki zawierają dane potrzebne do dalszego etapu ewidencji maili
 
 - `data/mails.json` - struktura danych zawierająca niezbędne UUID
 - `logs/sent.log` - lista adresów, na które udało się wysłać mail
