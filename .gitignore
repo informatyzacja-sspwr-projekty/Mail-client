@@ -132,6 +132,13 @@ dmypy.json
 
 .idea
 
+# project specific
 # config files
 /config/**
 !/config/*.example
+
+# auto generated data files
+/data/**
+
+# log files
+/logs/**
