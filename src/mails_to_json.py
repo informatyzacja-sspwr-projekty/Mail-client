@@ -43,4 +43,4 @@ if __name__ == "__main__":
     config = utils.load_config("../mail_data.json")
     convert_file_to_json(config["mails_txt_file"], config["mails_json_file"])
     print("Converted!")
-    utils.log(f"Mails converted: {utils.current_time()}")
+    utils.log(f"{utils.current_time()} {utils.current_time()} mails converted")

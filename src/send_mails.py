@@ -31,7 +31,6 @@ def send_mails(mail_data_dict, receivers, link):
         # https://docs.python.org/3/library/smtplib.html#smtplib.SMTP.starttls
         sending_mail.starttls()
         sending_mail.login(mail_user, mail_password)
-        log_file = open("../log.txt", 'a')
         sent_file = open("../sent.txt", 'w')
         notsent_file = open("../notsent.txt", 'w')
         for receiver in receivers:
@@ -45,14 +44,13 @@ def send_mails(mail_data_dict, receivers, link):
                 sending_mail.sendmail(
                     mail_user, receiver.mail, message.as_string())
                 print(f"{receiver.mail} sent")
-                log_file.write(f"{utils.current_time()} {receiver.mail} sent")
+                utils.log(f"{utils.current_time()} {receiver.mail} sent")
                 sent_file.write(f"{receiver.mail}")
             except Exception as e:
                 print(f"{receiver.mail} not sent, exception: {e}")
-                log_file.write(
+                utils.log(
                     f"{utils.current_time()} {receiver.mail} not sent, reason: {e}")
                 notsent_file.write(f"{receiver.mail}")
-        log_file.close()
         sent_file.close()
         notsent_file.close()
 
