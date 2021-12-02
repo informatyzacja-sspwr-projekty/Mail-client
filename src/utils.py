@@ -8,6 +8,8 @@ def current_time() -> str:
 
 def read_json(filename: str):
     """Reads a JSON file and returns it as a list of dictionaries."""
-    with open(filename) as file:
-        data = json.load(file)
-    return data
+    try:
+        with open(f"{filename}.json", encoding="utf8") as data:
+            return json.load(data)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"JSON file {filename} wasn't found")
