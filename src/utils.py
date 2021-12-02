@@ -15,7 +15,7 @@ def load_config(filename: str = "config.json"):
 def read_json(filename: str):
     """Reads a JSON file and returns it as a list of dictionaries."""
     try:
-        with open(f"{filename}.json", encoding="utf8") as data:
+        with open(f"{filename}", encoding="utf8") as data:
             return json.load(data)
     except FileNotFoundError:
         raise FileNotFoundError(f"JSON file {filename} wasn't found")
