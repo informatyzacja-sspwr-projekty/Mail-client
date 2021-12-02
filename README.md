@@ -81,10 +81,10 @@ Te pliki zawierają dane potrzebne do dalszego etapu ewidencji maili
 
 #### Koordynator Projektu - Dund33
 
-|        | Nickname      |
-| ------ | ------------- |
-| Python | FilipJQ77     |
-| Python | Byczax        |
-| Python | Omikorin      |
-| API    | Dund33        |
-| API    | karolkicinski |
+| Task/Technology | Nickname      |
+| --------------- | ------------- |
+| Python          | FilipJQ77     |
+| Python          | Byczax        |
+| Python          | Omikorin      |
+| API             | Dund33        |
+| API             | karolkicinski |
