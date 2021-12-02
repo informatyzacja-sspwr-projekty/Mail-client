@@ -20,7 +20,7 @@ def log(text: str):
 def log_to_file(filename: str, text: str):
     """Logs to the chosen file"""
     with open(f"logs/{filename}", 'a') as logs:
-        logs.write(text)
+        logs.write(f"{text}\n")
 
 
 def read_json(filename: str):
