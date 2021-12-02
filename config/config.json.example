@@ -7,5 +7,7 @@
   "mails_json_file": "mails.json",
   "subject": "Informatyzacja mailbot test",
   "mail_template": "mail_template.txt",
+  "attachments_subject": "Informatyzacja attachment test",
+  "attachment_mail_text": "logs from mailbot",
   "confirm_link": "https://ewidencjamaili.samorzad.pwr.edu.pl/confirm?uuid="
 }

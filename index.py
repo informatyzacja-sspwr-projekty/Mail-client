@@ -19,7 +19,14 @@ def send_mails(config: dict):
     utils.log(f"{utils.current_time()} Mails sent")
 
 
+def send_mail_with_attachments(config: dict):
+    mail_sender.send_mail_with_attachments(config)
+    print("Mail with attachments have been sent!")
+    utils.log(f"{utils.current_time()} Mail with attachments sent")
+
+
 if __name__ == "__main__":
     config = utils.load_config()
     convert_mails(config["mails_txt_file"], config["mails_json_file"])
     send_mails(config)
+    send_mail_with_attachments(config)
