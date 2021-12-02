@@ -1,4 +1,3 @@
-import email
 import os
 import smtplib
 import time
@@ -77,7 +76,7 @@ def send_mails(config: dict, receivers: map):
         clear_logs()
         for receiver in receivers:
             message = EmailMessage()
-            message['Subject'] = config["subject"]
+            message["Subject"] = config["subject"]
             content = message_replace(
                 receiver.name, receiver.uuid, config["confirm_link"], message_content)
             message.set_content(content)
