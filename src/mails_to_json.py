@@ -9,7 +9,7 @@ def convert_file_to_dict_list(filename: str) -> list:
     username = None
     email = None
     users_data = []
-    pattern_user = re.compile("user:", re.IGNORECASE)
+    pattern_user = re.compile("ytkownik:", re.IGNORECASE)
     pattern_mail = re.compile("mail:", re.IGNORECASE)
     try:
         with open(filename, "rt") as file:
