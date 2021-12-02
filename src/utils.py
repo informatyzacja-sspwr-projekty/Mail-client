@@ -3,10 +3,12 @@ import json
 
 
 def current_time() -> str:
+    """Returns current time."""
     return datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
 
 def load_config(filename: str = "config.json"):
+    """Returns config file as a list of dictionaries."""
     return read_json(filename)
 
 
