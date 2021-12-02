@@ -9,9 +9,9 @@ class MailReceiver:
     """Class made to simplify handling mail receivers."""
 
     def __init__(self, receiver_properties: dict):
-        self.name = receiver_properties["Name"]
-        self.mail = receiver_properties["Mail"]
-        self.uuid = receiver_properties["UUID"]
+        self.name = receiver_properties["name"]
+        self.mail = receiver_properties["mail"]
+        self.uuid = receiver_properties["uuid"]
 
 
 def message_replace(user, uuid, link, message):
@@ -23,11 +23,11 @@ def message_replace(user, uuid, link, message):
 
 def send_mails(mail_data_dict, receivers, link):
     """Sends mails to given receivers, with a given link."""
-    mail_user = mail_data_dict["Mail"]
-    mail_password = mail_data_dict["Password"]
-    with open(mail_data_dict["MessageContentFile"], encoding="utf-8", mode="rt") as file:
+    mail_user = mail_data_dict["mail"]
+    mail_password = mail_data_dict["password"]
+    with open(mail_data_dict["mail_template"], encoding="utf-8", mode="rt") as file:
         message_content = file.read()
-    with smtplib.SMTP(mail_data_dict["Host"], mail_data_dict["Port"]) as sending_mail:
+    with smtplib.SMTP(mail_data_dict["host"], mail_data_dict["port"]) as sending_mail:
         # https://docs.python.org/3/library/smtplib.html#smtplib.SMTP.starttls
         sending_mail.starttls()
         sending_mail.login(mail_user, mail_password)
@@ -36,7 +36,7 @@ def send_mails(mail_data_dict, receivers, link):
         notsent_file = open("../notsent.txt", 'w')
         for receiver in receivers:
             message = EmailMessage()
-            message['Subject'] = mail_data_dict["Subject"]
+            message['Subject'] = mail_data_dict["subject"]
             content = message_replace(
                 receiver.name, receiver.uuid, link, message_content)
             message.set_content(content)
@@ -61,7 +61,7 @@ if __name__ == "__main__":
     mail_dict = utils.load_config(
         "../mail_data.json")[0]  # [0] to get the dict
     # mail receivers json file
-    user_data = utils.read_json(mail_dict["MailsJsonFile"])
+    user_data = utils.read_json(mail_dict["mails_json_file"])
     mail_receivers = map(lambda x: MailReceiver(x), user_data)
     send_mails(mail_dict, mail_receivers,
                "https://www.unclelukes.site:33862/Confirm?uuid=")

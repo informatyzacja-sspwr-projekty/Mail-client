@@ -8,7 +8,7 @@ from . import utils
 def convert_file_to_dict_list(mail_data_dict):
     """Converts a file with users and email addresses given in mail_data.json into a list of dictionaries,
     where each dictionary is a separate email."""
-    filename = mail_data_dict["MailsTxtFile"]
+    filename = mail_data_dict["mails_txt_file"]
     username = None
     user_email = None
     dict_list = []
@@ -22,7 +22,7 @@ def convert_file_to_dict_list(mail_data_dict):
                 user_email = line.split()[1]
             if username and user_email:
                 dict_list.append(
-                    {"Name": username, "Mail": user_email, "UUID": str(uuid.uuid4())})
+                    {"name": username, "mail": user_email, "uuid": str(uuid.uuid4())})
                 username = None
                 user_email = None
     return dict_list
@@ -42,7 +42,7 @@ def convert_file_to_json(filename, json_filename):
 
 if __name__ == "__main__":
     mail_dict = utils.load_config("../mail_data.json")[0]
-    convert_file_to_json(mail_dict, mail_dict["MailsJsonFile"])
+    convert_file_to_json(mail_dict, mail_dict["mails_json_file"])
     print("Converted!")
     with open("../log.txt", 'a') as log_file:
         log_file.write(f"{utils.current_time()} Mails converted")
