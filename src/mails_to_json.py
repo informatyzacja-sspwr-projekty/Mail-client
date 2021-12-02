@@ -37,10 +37,3 @@ def convert_file_to_json(filename, json_filename):
     """Converts a file with users and email addresses into a JSON file."""
     dictionary_list = convert_file_to_dict_list(filename)
     convert_dict_list_to_json(dictionary_list, json_filename)
-
-
-if __name__ == "__main__":
-    config = utils.load_config("../mail_data.json")
-    convert_file_to_json(config["mails_txt_file"], config["mails_json_file"])
-    print("Converted!")
-    utils.log(f"{utils.current_time()} {utils.current_time()} mails converted")
