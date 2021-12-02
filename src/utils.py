@@ -12,6 +12,12 @@ def load_config(filename: str = "config/config.json"):
     return read_json(filename)[0]  # [0] to get the dict
 
 
+def log(text: str):
+    """Logs to log file"""
+    with open("logs/logs.log", 'a') as logs:
+        logs.write(text)
+
+
 def read_json(filename: str):
     """Reads a JSON file and returns it as a list of dictionaries."""
     try:
