@@ -35,7 +35,6 @@ def send_mails(config: dict, receivers: map):
         smtp_client.starttls()
         smtp_client.login(sender_mail, sender_password)
         clear_logs()
-        return
         for receiver in receivers:
             message = EmailMessage()
             message['Subject'] = config["subject"]
