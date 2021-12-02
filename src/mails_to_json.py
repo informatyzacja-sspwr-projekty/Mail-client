@@ -41,7 +41,7 @@ def convert_file_to_json(filename, json_filename):
 
 
 if __name__ == "__main__":
-    mail_dict = utils.read_json("../mail_data.json")[0]
+    mail_dict = utils.load_config("../mail_data.json")[0]
     convert_file_to_json(mail_dict, mail_dict["MailsJsonFile"])
     print("Converted!")
     with open("../log.txt", 'a') as log_file:

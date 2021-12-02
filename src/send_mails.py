@@ -58,7 +58,8 @@ def send_mails(mail_data_dict, receivers, link):
 
 
 if __name__ == "__main__":
-    mail_dict = utils.read_json("../mail_data.json")[0]  # [0] to get the dict
+    mail_dict = utils.load_config(
+        "../mail_data.json")[0]  # [0] to get the dict
     # mail receivers json file
     user_data = utils.read_json(mail_dict["MailsJsonFile"])
     mail_receivers = map(lambda x: MailReceiver(x), user_data)
