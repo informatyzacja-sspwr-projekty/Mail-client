@@ -2,6 +2,7 @@ from src import mails_to_json, utils
 
 
 def convert_mails(txt_file: str, json_file: str):
+    """Converts mails from txt file to json file"""
     mails_to_json.convert_file_to_json(
         f"data/{txt_file}", f"data/{json_file}")
     print("Mails converted!")
