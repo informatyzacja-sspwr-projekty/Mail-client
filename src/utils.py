@@ -6,6 +6,10 @@ def current_time() -> str:
     return datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
 
+def load_config(filename: str = "config.json"):
+    return read_json(filename)
+
+
 def read_json(filename: str):
     """Reads a JSON file and returns it as a list of dictionaries."""
     try:
