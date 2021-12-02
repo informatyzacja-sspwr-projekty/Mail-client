@@ -6,44 +6,40 @@ from email.message import EmailMessage
 from . import utils
 
 
-class MailReceiver:
-    """Class made to simplify handling mail receivers."""
-
-    def __init__(self, receiver_properties: dict):
-        self.name = receiver_properties["name"]
-        self.mail = receiver_properties["mail"]
-        self.uuid = receiver_properties["uuid"]
+def clear_logs():
+    """Clears log files of emails sent and not sent"""
+    os.remove("logs/sent.log")
+    os.remove("logs/notsent.log")
 
 
-def message_replace(user, uuid, link, message):
+def message_replace(user: str, uuid: str, confirm_link: str, message: str) -> str:
     """Replace tags in message with given information."""
     message = message.replace("{user}", user)
-    message = message.replace("{link}", (link + uuid))
+    message = message.replace("{confirm_link}", (confirm_link + uuid))
     return message
 
 
-def send_mails(mail_data_dict, receivers, link):
+def send_mails(config: dict, receivers: map):
     """Sends mails to given receivers, with a given link."""
-    mail_user = mail_data_dict["mail"]
-    mail_password = mail_data_dict["password"]
-    with open(mail_data_dict["mail_template"], encoding="utf-8", mode="rt") as file:
+    sender_mail = config["mail"]
+    sender_password = config["password"]
+    with open(f"config/{config['mail_template']}", encoding="utf-8", mode="rt") as file:
         message_content = file.read()
-    with smtplib.SMTP(mail_data_dict["host"], mail_data_dict["port"]) as sending_mail:
+    with smtplib.SMTP(config["host"], config["port"]) as smtp_client:
         # https://docs.python.org/3/library/smtplib.html#smtplib.SMTP.starttls
-        sending_mail.starttls()
-        sending_mail.login(mail_user, mail_password)
-        os.remove("logs/sent.log")
-        os.remove("logs/notsent.log")
+        smtp_client.starttls()
+        smtp_client.login(sender_mail, sender_password)
+        clear_logs()
         for receiver in receivers:
             message = EmailMessage()
-            message['Subject'] = mail_data_dict["subject"]
+            message['Subject'] = config["subject"]
             content = message_replace(
-                receiver.name, receiver.uuid, link, message_content)
+                receiver.name, receiver.uuid, config["confirm_link"], message_content)
             message.set_content(content)
             time.sleep(10)
             try:
-                sending_mail.sendmail(
-                    mail_user, receiver.mail, message.as_string())
+                smtp_client.sendmail(
+                    sender_mail, receiver.mail, message.as_string())
                 print(f"{receiver.mail} sent")
                 utils.log(f"{utils.current_time()} {receiver.mail} sent")
                 utils.log_to_file("sent.log", f"{receiver.mail}")
@@ -52,14 +48,3 @@ def send_mails(mail_data_dict, receivers, link):
                 utils.log(
                     f"{utils.current_time()} {receiver.mail} not sent, reason: {e}")
                 utils.log_to_file("notsent.log", f"{receiver.mail}")
-
-
-if __name__ == "__main__":
-    config = utils.load_config(
-        "../mail_data.json")
-    # mail receivers json file
-    user_data = utils.read_json(config["mails_json_file"])
-    mail_receivers = map(lambda x: MailReceiver(x), user_data)
-    send_mails(config, mail_receivers,
-               "https://www.unclelukes.site:33862/Confirm?uuid=")
-    print("Mails have been sent!")
