@@ -1,4 +1,4 @@
-from src import send_mails, mails_to_json, utils
+from src import mail_sender, mails_to_json, utils
 from src.mail_receiver import MailReceiver
 
 
@@ -14,7 +14,7 @@ def send_mails(config: dict):
     """Prepares users' data and sends mails to receivers."""
     users_data = utils.read_json(f"data/{config['mails_json_file']}")
     mail_receivers = map(lambda x: MailReceiver(x), users_data)
-    send_mails.send_mails(config, mail_receivers)
+    mail_sender.send_mails(config, mail_receivers)
     print("Mails have been sent!")
     utils.log(f"{utils.current_time()} Mails sent")
 
