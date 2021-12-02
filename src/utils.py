@@ -7,9 +7,9 @@ def current_time() -> str:
     return datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
 
-def load_config(filename: str = "config/config.json"):
+def load_config(filename: str = "config.json"):
     """Returns config file as a list of dictionaries."""
-    return read_json(filename)[0]  # [0] to get the dict
+    return read_json(f"config/{filename}")[0]  # [0] to get the dict
 
 
 def log(text: str):
