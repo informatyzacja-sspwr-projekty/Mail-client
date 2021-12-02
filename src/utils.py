@@ -9,7 +9,7 @@ def current_time() -> str:
 
 def load_config(filename: str = "config.json"):
     """Returns config file as a list of dictionaries."""
-    return read_json(f"config/{filename}")[0]  # [0] to get the dict
+    return read_json(f"config/{filename}")
 
 
 def log(text: str):
