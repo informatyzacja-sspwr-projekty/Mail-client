@@ -1,3 +1,4 @@
+import os
 import smtplib
 import time
 from email.message import EmailMessage
@@ -31,8 +32,8 @@ def send_mails(mail_data_dict, receivers, link):
         # https://docs.python.org/3/library/smtplib.html#smtplib.SMTP.starttls
         sending_mail.starttls()
         sending_mail.login(mail_user, mail_password)
-        sent_file = open("../sent.txt", 'w')
-        notsent_file = open("../notsent.txt", 'w')
+        os.remove("logs/sent.log")
+        os.remove("logs/notsent.log")
         for receiver in receivers:
             message = EmailMessage()
             message['Subject'] = mail_data_dict["subject"]
@@ -45,14 +46,12 @@ def send_mails(mail_data_dict, receivers, link):
                     mail_user, receiver.mail, message.as_string())
                 print(f"{receiver.mail} sent")
                 utils.log(f"{utils.current_time()} {receiver.mail} sent")
-                sent_file.write(f"{receiver.mail}")
+                utils.log_to_file("sent.log", f"{receiver.mail}")
             except Exception as e:
                 print(f"{receiver.mail} not sent, exception: {e}")
                 utils.log(
                     f"{utils.current_time()} {receiver.mail} not sent, reason: {e}")
-                notsent_file.write(f"{receiver.mail}")
-        sent_file.close()
-        notsent_file.close()
+                utils.log_to_file("notsent.log", f"{receiver.mail}")
 
 
 if __name__ == "__main__":

@@ -14,7 +14,12 @@ def load_config(filename: str = "config/config.json"):
 
 def log(text: str):
     """Logs to log file"""
-    with open("logs/logs.log", 'a') as logs:
+    log_to_file("logs.log", text)
+
+
+def log_to_file(filename: str, text: str):
+    """Logs to the chosen file"""
+    with open(f"logs/{filename}", 'a') as logs:
         logs.write(text)
 
 
