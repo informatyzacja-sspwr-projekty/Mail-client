@@ -9,21 +9,19 @@ MailBot służy do wysyłania automatycznie maili o określonej treści do odbio
 > `config/config.json` (szablon: `config/config.json.example`)
 
 ```json
-[
-  {
-    "mail": "informatyzacja@samorzad.pwr.edu.pl",
-    "password": "",
-    "host": "student.pwr.edu.pl",
-    "port": 587,
-    "mails_txt_file": "mails.txt",
-    "mails_json_file": "mails.json",
-    "subject": "Informatyzacja mailbot test",
-    "mail_template": "mail_template.txt",
-    "attachments_subject": "Informatyzacja attachment test",
-    "attachment_mail_text": "Logs from mailbot",
-    "confirm_link": "https://ewidencjamaili.samorzad.pwr.edu.pl/confirm?uuid="
-  }
-]
+{
+  "mail": "informatyzacja@samorzad.pwr.edu.pl",
+  "password": "",
+  "host": "student.pwr.edu.pl",
+  "port": 587,
+  "mails_txt_file": "mails.txt",
+  "mails_json_file": "mails.json",
+  "subject": "Informatyzacja mailbot test",
+  "mail_template": "mail_template.txt",
+  "attachments_subject": "Informatyzacja attachment test",
+  "attachment_mail_text": "Logs from mailbot",
+  "confirm_link": "https://ewidencjamaili.samorzad.pwr.edu.pl/confirm?uuid="
+}
 ```
 
 - `mail` - adres e-mail nadawcy,
