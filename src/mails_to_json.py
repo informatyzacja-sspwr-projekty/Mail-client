@@ -5,10 +5,9 @@ import uuid
 from . import utils
 
 
-def convert_file_to_dict_list(mail_data_dict):
+def convert_file_to_dict_list(filename):
     """Converts a file with users and email addresses given in mail_data.json into a list of dictionaries,
     where each dictionary is a separate email."""
-    filename = mail_data_dict["mails_txt_file"]
     username = None
     user_email = None
     dict_list = []
@@ -41,8 +40,8 @@ def convert_file_to_json(filename, json_filename):
 
 
 if __name__ == "__main__":
-    mail_dict = utils.load_config("../mail_data.json")[0]
-    convert_file_to_json(mail_dict, mail_dict["mails_json_file"])
+    config = utils.load_config("../mail_data.json")[0]
+    convert_file_to_json(config["mails_txt_file"], config["mails_json_file"])
     print("Converted!")
     with open("../log.txt", 'a') as log_file:
         log_file.write(f"{utils.current_time()} Mails converted")
