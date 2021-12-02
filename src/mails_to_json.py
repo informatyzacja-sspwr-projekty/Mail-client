@@ -2,28 +2,26 @@ import json
 import re
 import uuid
 
-from . import utils
-
 
 def convert_file_to_dict_list(filename):
-    """Converts a file with users and email addresses given in mail_data.json into a list of dictionaries,
-    where each dictionary is a separate email."""
+    """Converts a file with users and email addresses given in (data/)file named from mails_txt_file property
+    from config file into a list of dictionaries, where each dictionary is a separate email."""
     username = None
-    user_email = None
+    email = None
     dict_list = []
-    pattern_user = re.compile("ytkownik:", re.IGNORECASE)
+    pattern_user = re.compile("user:", re.IGNORECASE)
     pattern_mail = re.compile("mail:", re.IGNORECASE)
     with open(filename, "rt") as file:
         for line in file:
             if pattern_user.search(line):
                 username = line.split()[1].split(",")[0]
             elif pattern_mail.search(line):
-                user_email = line.split()[1]
-            if username and user_email:
+                email = line.split()[1]
+            if username and email:
                 dict_list.append(
-                    {"name": username, "mail": user_email, "uuid": str(uuid.uuid4())})
+                    {"name": username, "mail": email, "uuid": str(uuid.uuid4())})
                 username = None
-                user_email = None
+                email = None
     return dict_list
 
 
@@ -33,7 +31,7 @@ def convert_dict_list_to_json(dict_list, filename: str):
         json.dump(dict_list, file, indent=2)
 
 
-def convert_file_to_json(filename, json_filename):
+def convert_file_to_json(filename: str, json_filename: str):
     """Converts a file with users and email addresses into a JSON file."""
     dictionary_list = convert_file_to_dict_list(filename)
     convert_dict_list_to_json(dictionary_list, json_filename)
