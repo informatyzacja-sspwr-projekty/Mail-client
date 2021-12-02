@@ -132,7 +132,6 @@ dmypy.json
 
 .idea
 
-#other
-
-*.txt
-
+# config files
+/config/**
+!/config/*.example
