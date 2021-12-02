@@ -1,7 +1,7 @@
+import datetime
 import json
 import re
 import uuid
-import datetime
 
 
 def current_time() -> str:
@@ -24,7 +24,8 @@ def convert_file_to_dict_list(mail_data_dict):
             elif pattern_mail.search(line):
                 user_email = line.split()[1]
             if username and user_email:
-                dict_list.append({"Name": username, "Mail": user_email, "UUID": str(uuid.uuid4())})
+                dict_list.append(
+                    {"Name": username, "Mail": user_email, "UUID": str(uuid.uuid4())})
                 username = None
                 user_email = None
     return dict_list

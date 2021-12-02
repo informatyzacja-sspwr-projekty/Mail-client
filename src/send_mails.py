@@ -1,7 +1,7 @@
-import time
-import smtplib
-import json
 import datetime
+import json
+import smtplib
+import time
 from email.message import EmailMessage
 
 
@@ -39,7 +39,8 @@ def send_mails(mail_data_dict, receivers, link):
     with open(mail_data_dict["MessageContentFile"], encoding="utf-8", mode="rt") as file:
         message_content = file.read()
     with smtplib.SMTP(mail_data_dict["Host"], mail_data_dict["Port"]) as sending_mail:
-        sending_mail.starttls()  # https://docs.python.org/3/library/smtplib.html#smtplib.SMTP.starttls
+        # https://docs.python.org/3/library/smtplib.html#smtplib.SMTP.starttls
+        sending_mail.starttls()
         sending_mail.login(mail_user, mail_password)
         log_file = open("../log.txt", 'a')
         sent_file = open("../sent.txt", 'w')
@@ -47,17 +48,20 @@ def send_mails(mail_data_dict, receivers, link):
         for receiver in receivers:
             message = EmailMessage()
             message['Subject'] = mail_data_dict["Subject"]
-            content = message_replace(receiver.name, receiver.uuid, link, message_content)
+            content = message_replace(
+                receiver.name, receiver.uuid, link, message_content)
             message.set_content(content)
             time.sleep(10)
             try:
-                sending_mail.sendmail(mail_user, receiver.mail, message.as_string())
+                sending_mail.sendmail(
+                    mail_user, receiver.mail, message.as_string())
                 print(f"{receiver.mail} sent")
                 log_file.write(f"{current_time()} {receiver.mail} sent")
                 sent_file.write(f"{receiver.mail}")
             except Exception as e:
                 print(f"{receiver.mail} not sent, exception: {e}")
-                log_file.write(f"{current_time()} {receiver.mail} not sent, reason: {e}")
+                log_file.write(
+                    f"{current_time()} {receiver.mail} not sent, reason: {e}")
                 notsent_file.write(f"{receiver.mail}")
         log_file.close()
         sent_file.close()
@@ -66,7 +70,9 @@ def send_mails(mail_data_dict, receivers, link):
 
 if __name__ == "__main__":
     mail_dict = read_json("../mail_data.json")[0]  # [0] to get the dict
-    user_data = read_json(mail_dict["MailsJsonFile"])  # mail receivers json file
+    # mail receivers json file
+    user_data = read_json(mail_dict["MailsJsonFile"])
     mail_receivers = map(lambda x: MailReceiver(x), user_data)
-    send_mails(mail_dict, mail_receivers, "https://www.unclelukes.site:33862/Confirm?uuid=")
+    send_mails(mail_dict, mail_receivers,
+               "https://www.unclelukes.site:33862/Confirm?uuid=")
     print("Mails have been sent!")
