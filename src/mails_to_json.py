@@ -40,7 +40,7 @@ def convert_file_to_json(filename, json_filename):
 
 
 if __name__ == "__main__":
-    config = utils.load_config("../mail_data.json")[0]
+    config = utils.load_config("../mail_data.json")
     convert_file_to_json(config["mails_txt_file"], config["mails_json_file"])
     print("Converted!")
     with open("../log.txt", 'a') as log_file:
