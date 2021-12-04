@@ -5,9 +5,9 @@
   "port": 587,
   "mails_txt_file": "mails.txt",
   "mails_json_file": "mails.json",
-  "subject": "Informatyzacja mailbot test",
+  "subject": "[EWIDENCJA][SSPWR][MAIL]",
   "mail_template": "mail_template.txt",
-  "attachments_subject": "Informatyzacja attachment test",
+  "attachments_subject": "[EWIDENCJA][SSPWR][MAIL] Wyniki",
   "attachment_mail_text": "logs from mailbot",
   "confirm_link": "https://ewidencjamaili.samorzad.pwr.edu.pl/confirm?uuid="
 }
