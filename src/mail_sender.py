@@ -45,10 +45,15 @@ def send_mail_with_attachments(config: dict):
         smtp_client.login(sender_mail, sender_password)
 
         message = MIMEMultipart()
+
         message["Subject"] = config["attachments_subject"]
+        message["From"] = sender_mail
+        message["To"] = sender_mail
+
         message.attach(MIMEText(message_content, "plain"))
 
-        filenames = ["data/mails.json", "logs/logs.log", "logs/sent.log", "logs/notsent.log"]
+        filenames = ["data/mails.json", "logs/logs.log",
+                     "logs/sent.log", "logs/notsent.log"]
 
         for filename in filenames:
             with open(filename, "rb") as attachment:
@@ -95,7 +100,10 @@ def send_mails(config: dict, receivers: map):
 
         for receiver in receivers:
             message = EmailMessage()
+
             message["Subject"] = config["subject"]
+            message["From"] = sender_mail
+            message["To"] = receiver.mail
 
             content = message_replace(
                 receiver.name, receiver.uuid, config["confirm_link"], message_content)
