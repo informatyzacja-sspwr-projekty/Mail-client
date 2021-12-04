@@ -1,4 +1,3 @@
-import os
 import smtplib
 import time
 from email import encoders
@@ -8,18 +7,6 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 from . import utils
-
-
-def clear_logs():
-    """Clears log files of emails sent and not sent"""
-
-    try:
-        os.remove("logs/sent.log")
-        os.remove("logs/notsent.log")
-    except FileNotFoundError:
-        return
-    except Exception as e:
-        raise e
 
 
 def message_replace(user: str, uuid: str, confirm_link: str, message: str) -> str:
@@ -95,8 +82,6 @@ def send_mails(config: dict, receivers: map):
 
         smtp_client.starttls()
         smtp_client.login(sender_mail, sender_password)
-
-        clear_logs()
 
         for receiver in receivers:
             message = EmailMessage()

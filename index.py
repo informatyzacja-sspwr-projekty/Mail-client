@@ -36,6 +36,7 @@ def send_mail_with_attachments(config: dict):
 if __name__ == "__main__":
     config = utils.load_config()
 
+    utils.clear_logs()
     convert_mails(config["mails_txt_file"], config["mails_json_file"])
     send_mails(config)
     send_mail_with_attachments(config)

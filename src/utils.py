@@ -1,5 +1,19 @@
 import datetime
 import json
+import os
+
+
+def clear_logs():
+    """Clears log files of emails sent and not sent"""
+
+    try:
+        os.remove("logs/logs.log")
+        os.remove("logs/sent.log")
+        os.remove("logs/notsent.log")
+    except FileNotFoundError:
+        return
+    except Exception as e:
+        raise e
 
 
 def current_time() -> str:
