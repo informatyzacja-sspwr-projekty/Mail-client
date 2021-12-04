@@ -72,6 +72,7 @@ Po wysłaniu maili do wszystkich podanych odbiorców następuje wysłanie maila 
 Te pliki zawierają dane potrzebne do dalszego etapu ewidencji maili
 
 - `data/mails.json` - struktura danych zawierająca niezbędne UUID
+- `logs/logs.log` - logi, w których są zawarte informacje dlaczego nie udało się wysłać maila
 - `logs/sent.log` - lista adresów, na które udało się wysłać mail
 - `logs/notsent.log` - lista adresów, na które nie udało się wysłać maila
 
