@@ -11,7 +11,7 @@ def clear_logs():
         os.remove("logs/sent.log")
         os.remove("logs/notsent.log")
     except FileNotFoundError:
-        return
+        pass
     except Exception as e:
         raise e
 
