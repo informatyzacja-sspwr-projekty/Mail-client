@@ -49,3 +49,12 @@ def read_json(filename: str):
             return json.load(data)
     except FileNotFoundError:
         raise FileNotFoundError(f"JSON file {filename} wasn't found")
+
+
+def setup_dirs():
+    """Creates needed dirs if it doesn't exist"""
+
+    try:
+        os.makedirs("logs")
+    except FileExistsError:
+        pass
