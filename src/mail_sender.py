@@ -61,7 +61,7 @@ def send_mail_with_attachments(config: dict):
             )
             message.attach(part)
 
-        time.sleep(10)
+        time.sleep(1)
 
         try:
             smtp_client.sendmail(
@@ -102,7 +102,7 @@ def send_mails(config: dict, receivers: map):
 
             message.set_content(content)
 
-            time.sleep(10)
+            time.sleep(1)
 
             try:
                 smtp_client.sendmail(
