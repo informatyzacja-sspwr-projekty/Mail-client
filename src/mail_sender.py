@@ -48,7 +48,7 @@ def send_mail_with_attachments(config: dict):
         message["Subject"] = config["attachments_subject"]
         message.attach(MIMEText(message_content, "plain"))
 
-        filenames = ["data/mails.json", "logs/sent.log", "logs/notsent.log"]
+        filenames = ["data/mails.json", "logs/logs.log", "logs/sent.log", "logs/notsent.log"]
 
         for filename in filenames:
             with open(filename, "rb") as attachment:
