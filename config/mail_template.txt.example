@@ -1,2 +1,14 @@
-Hey {user}!
-You won a free dziekanka, get your reward at: {confirm_link}
+Drogi użytkowniku {user},
+
+aby potwierdzić korzystanie ze skrzynki samorządowej, kliknij w poniższy link:
+
+{confirm_link}
+
+Możesz też odpowiedzieć na tę wiadomość.
+
+Brak aktywności do 12.12.2021r 23:59, skutkuje rozpoczęciem procesu dezaktywacji konta.
+
+--
+Ze studenckimi pozdrowieniami
+Komisja ds. Informatyzacji
+Samorząd Studencki Politechniki Wrocławskiej
