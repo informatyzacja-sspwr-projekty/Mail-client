@@ -55,6 +55,7 @@ def setup_dirs():
     """Creates needed dirs if it doesn't exist"""
 
     try:
+        os.makedirs("data")
         os.makedirs("logs")
     except FileExistsError:
         pass
