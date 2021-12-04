@@ -43,15 +43,20 @@ def send_mail_with_attachments(config: dict):
                      "logs/sent.log", "logs/notsent.log"]
 
         for filename in filenames:
-            with open(filename, "rb") as attachment:
-                part = MIMEBase("application", "octet-stream")
-                part.set_payload(attachment.read())
+            try:
+                with open(filename, "rb") as attachment:
+                    part = MIMEBase("application", "octet-stream")
+                    part.set_payload(attachment.read())
 
-            encoders.encode_base64(part)
-            part.add_header(
-                "Content-Disposition", f"attachment; filename= {filename}"
-            )
-            message.attach(part)
+                encoders.encode_base64(part)
+                part.add_header(
+                    "Content-Disposition", f"attachment; filename= {filename}"
+                )
+                message.attach(part)
+            except FileNotFoundError:
+                pass
+            except Exception as e:
+                raise e
 
         time.sleep(1)
 
