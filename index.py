@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from src import mail_sender, mails_to_json, utils
 from src.mail_receiver import MailReceiver
 
