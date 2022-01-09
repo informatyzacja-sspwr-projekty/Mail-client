@@ -58,7 +58,7 @@ def send_mail_with_attachments(config: dict):
             except Exception as e:
                 raise e
 
-        time.sleep(1)
+        time.sleep(3)
 
         try:
             smtp_client.sendmail(
@@ -89,18 +89,18 @@ def send_mails(config: dict, receivers: map):
         smtp_client.login(sender_mail, sender_password)
 
         for receiver in receivers:
-            message = EmailMessage()
+            content = message_replace(
+                receiver.name, receiver.uuid, config["confirm_link"], message_content)
+
+            content = content.replace('\n', '<br/>\n')
+
+            message = MIMEText(content, 'html', 'utf-8')
 
             message["Subject"] = config["subject"]
             message["From"] = sender_mail
             message["To"] = receiver.mail
 
-            content = message_replace(
-                receiver.name, receiver.uuid, config["confirm_link"], message_content)
-
-            message.set_content(content)
-
-            time.sleep(1)
+            time.sleep(3)
 
             try:
                 smtp_client.sendmail(
