@@ -28,7 +28,6 @@ def send_mail_with_attachments(config: dict):
     with smtplib.SMTP(config["host"], config["port"]) as smtp_client:
         # https://docs.python.org/3/library/smtplib.html#smtplib.SMTP.starttls
 
-        smtp_client.ehlo()
         smtp_client.starttls()
         smtp_client.login(sender_mail, sender_password)
 
