@@ -9,10 +9,10 @@ from email.mime.text import MIMEText
 from . import utils
 
 
-def message_replace(user: str, uuid: str, confirm_link: str, message: str) -> str:
+def message_replace(mail: str, uuid: str, confirm_link: str, message: str) -> str:
     """Replace tags in message with given information."""
 
-    message = message.replace("{user}", user)
+    message = message.replace("{mail}", mail)
     message = message.replace("{confirm_link}", (confirm_link + uuid))
 
     return message
