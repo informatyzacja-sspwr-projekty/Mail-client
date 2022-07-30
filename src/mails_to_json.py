@@ -7,23 +7,17 @@ def convert_file_to_dict_list(filename: str) -> list:
     """Converts a file with users and email addresses given in (data/)file named from mails_txt_file property
     from config file into a list of dictionaries, where each dictionary is a separate email."""
 
-    username = None
     email = None
     users_data = []
-    pattern_user = re.compile("ytkownik:", re.IGNORECASE)
     pattern_mail = re.compile("mail:", re.IGNORECASE)
 
     try:
         with open(filename, "rt") as file:
             for line in file:
-                if pattern_user.search(line):
-                    username = line.split()[1].split(",")[0]
-                elif pattern_mail.search(line):
+                if pattern_mail.search(line):
                     email = line.split()[1]
-                if username and email:
                     users_data.append(
-                        {"name": username, "mail": email, "uuid": str(uuid.uuid4())})
-                    username = None
+                        {"mail": email, "uuid": str(uuid.uuid4())})
                     email = None
     except FileNotFoundError:
         raise FileNotFoundError(f"File {filename} wasn't found")
