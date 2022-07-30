@@ -90,7 +90,7 @@ def send_mails(config: dict, receivers: map):
 
         for receiver in receivers:
             content = message_replace(
-                receiver.name, receiver.uuid, config["confirm_link"], message_content)
+                receiver.name, receiver.uuid, config["confirm_link"], config["date"], message_content)
 
             content = content.replace('\n', '<br/>\n')
 
