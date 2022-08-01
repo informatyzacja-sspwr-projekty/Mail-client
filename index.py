@@ -24,13 +24,20 @@ def send_mails(config: dict):
             log_mails = file.readlines()
             sent_mails = [line.rstrip() for line in log_mails]
             diff = list(set(all_mails) - set(sent_mails))
-            users_data = [x for x in users_data if x['mail'] in diff]
-    mail_receivers = map(lambda x: MailReceiver(x), users_data)
-
-    mail_sender.send_mails(config, mail_receivers)
-
-    print("Mails have been sent!")
-    utils.log(f"{utils.current_time()} Mails sent")
+            if diff:
+                users_data = [x for x in users_data if x['mail'] in diff]
+                mail_receivers = map(lambda x: MailReceiver(x), users_data)
+                mail_sender.send_mails(config, mail_receivers)
+                print("Mails have been sent!")
+                utils.log(f"{utils.current_time()} Mails sent")
+            else:
+                print("No new mails have been sent!")
+                utils.log(f"{utils.current_time()} No new mails sent")
+    else:
+        mail_receivers = map(lambda x: MailReceiver(x), users_data)
+        mail_sender.send_mails(config, mail_receivers)
+        print("Mails have been sent!")
+        utils.log(f"{utils.current_time()} Mails sent")
 
 
 def send_mail_with_attachments(config: dict):
