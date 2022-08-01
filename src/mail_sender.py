@@ -1,7 +1,6 @@
 import smtplib
 import time
 from email import encoders
-from email.message import EmailMessage
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -28,7 +27,6 @@ def send_mail_with_attachments(config: dict):
     with smtplib.SMTP(config["host"], config["port"]) as smtp_client:
         # https://docs.python.org/3/library/smtplib.html#smtplib.SMTP.starttls
 
-        smtp_client.ehlo()
         smtp_client.starttls()
         smtp_client.login(sender_mail, sender_password)
 
@@ -76,6 +74,8 @@ def send_mail_with_attachments(config: dict):
 
 def send_mails(config: dict, receivers: map):
     """Sends mails to given receivers, with a given link."""
+
+    print("Sending...")
 
     sender_mail = config["mail"]
     sender_password = config["password"]

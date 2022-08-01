@@ -1,6 +1,8 @@
 import datetime
 import json
 import os
+import uuid
+from . import utils
 
 
 def clear_logs():
@@ -12,6 +14,30 @@ def clear_logs():
         os.remove("logs/notsent.log")
     except FileNotFoundError:
         pass
+    except Exception as e:
+        raise e
+
+
+def clean_logs_and_uuids(config: dict):
+    """Replaces UUID with an empty string for every record in mails.json and cleans logs."""
+
+    with open(f"data/{config['mails_json_file']}") as mails_json:
+        emails_file = json.load(mails_json)
+        for record in emails_file:
+            record['uuid'] = ''
+        json.dump(emails_file, open(f"data/{config['mails_json_file']}", "w"), indent=2)
+
+    utils.flush_file("logs/sent.log")
+    utils.flush_file("logs/notsent.log")
+
+
+def flush_file(filename: str):
+    try:
+        open(filename, "w").close()
+
+    except FileNotFoundError:
+        pass
+
     except Exception as e:
         raise e
 
@@ -59,3 +85,13 @@ def setup_dirs():
         os.makedirs("logs")
     except FileExistsError:
         pass
+
+
+def generate_uuids(config: dict):
+    """Generates a JSON with new UUIDs for each record in mails.json."""
+
+    with open(f"data/{config['mails_json_file']}") as file:
+        emails_file = json.load(file)
+        for record in emails_file:
+            record['uuid'] = str(uuid.uuid4())
+        json.dump(emails_file, open(f"data/{config['mails_json_file']}", "w"), indent=2)
