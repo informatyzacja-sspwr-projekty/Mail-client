@@ -9,11 +9,12 @@ from email.mime.text import MIMEText
 from . import utils
 
 
-def message_replace(mail: str, uuid: str, confirm_link: str, message: str) -> str:
+def message_replace(mail: str, uuid: str, confirm_link: str, date: str, message: str) -> str:
     """Replace tags in message with given information."""
 
     message = message.replace("{mail}", mail)
     message = message.replace("{confirm_link}", (confirm_link + uuid))
+    message = message.replace("{date}", date)
 
     return message
 
@@ -89,8 +90,9 @@ def send_mails(config: dict, receivers: map):
         smtp_client.login(sender_mail, sender_password)
 
         for receiver in receivers:
+            receiver_mail = receiver["mail"]
             content = message_replace(
-                receiver.name, receiver.uuid, config["confirm_link"], config["date"], message_content)
+                receiver_mail, receiver["uuid"], config["confirm_link"], config["date"], message_content)
 
             content = content.replace('\n', '<br/>\n')
 
@@ -98,19 +100,19 @@ def send_mails(config: dict, receivers: map):
 
             message["Subject"] = config["subject"]
             message["From"] = sender_mail
-            message["To"] = receiver.mail
+            message["To"] = receiver_mail
 
             time.sleep(3)
 
             try:
                 smtp_client.sendmail(
-                    sender_mail, receiver.mail, message.as_string())
+                    sender_mail, receiver_mail, message.as_string())
 
-                print(f"{receiver.mail} sent")
-                utils.log(f"{utils.current_time()} {receiver.mail} sent")
-                utils.log_to_file("sent.log", f"{receiver.mail}")
+                print(f"{receiver_mail} sent")
+                utils.log(f"{utils.current_time()} {receiver_mail} sent")
+                utils.log_to_file("sent.log", f"{receiver_mail}")
             except Exception as e:
-                print(f"{receiver.mail} not sent, exception: {e}")
+                print(f"{receiver_mail} not sent, exception: {e}")
                 utils.log(
-                    f"{utils.current_time()} {receiver.mail} not sent, reason: {e}")
-                utils.log_to_file("notsent.log", f"{receiver.mail}")
+                    f"{utils.current_time()} {receiver_mail} not sent, reason: {e}")
+                utils.log_to_file("notsent.log", f"{receiver_mail}")

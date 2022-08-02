@@ -7,7 +7,6 @@ def convert_file_to_dict_list(filename: str) -> list:
     """Converts a file with users and email addresses given in (data/)file named from mails_txt_file property
     from config file into a list of dictionaries, where each dictionary is a separate email."""
 
-    email = None
     users_data = []
     pattern_mail = re.compile("mail:", re.IGNORECASE)
 
@@ -18,7 +17,6 @@ def convert_file_to_dict_list(filename: str) -> list:
                     email = line.split()[1]
                     users_data.append(
                         {"mail": email, "uuid": str(uuid.uuid4())})
-                    email = None
     except FileNotFoundError:
         raise FileNotFoundError(f"File {filename} wasn't found")
 

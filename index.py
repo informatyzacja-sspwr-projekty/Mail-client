@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 from src import mail_sender, mails_to_json, utils
-from src.mail_receiver import MailReceiver
 
 
 def convert_mails(txt_filename: str, json_filename: str):
@@ -16,8 +15,7 @@ def convert_mails(txt_filename: str, json_filename: str):
 def send_mails(config: dict):
     """Prepares users' data and sends mails to receivers."""
 
-    users_data = utils.read_json(f"data/{config['mails_json_file']}")
-    mail_receivers = map(lambda x: MailReceiver(x), users_data)
+    mail_receivers = utils.read_json(f"data/{config['mails_json_file']}")
 
     mail_sender.send_mails(config, mail_receivers)
 
