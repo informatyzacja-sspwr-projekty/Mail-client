@@ -30,10 +30,10 @@ def send_mails(config: dict):
                 print("No new mails have been sent!")
                 utils.log(f"{utils.current_time()} No new mails sent")
                 return
-        mail_receivers = map(lambda x: MailReceiver(x), users_data)
-        mail_sender.send_mails(config, mail_receivers)
-        print("Mails have been sent!")
-        utils.log(f"{utils.current_time()} Mails sent")
+    mail_receivers = map(lambda x: MailReceiver(x), users_data)
+    mail_sender.send_mails(config, mail_receivers)
+    print("Mails have been sent!")
+    utils.log(f"{utils.current_time()} Mails sent")
 
 
 def send_mail_with_attachments(config: dict):
