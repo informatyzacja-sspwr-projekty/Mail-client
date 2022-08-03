@@ -2,20 +2,14 @@ import datetime
 import json
 import os
 import uuid
-from . import utils
 
 
 def clear_logs():
     """Clears log files of emails sent and not sent"""
 
-    try:
-        os.remove("logs/logs.log")
-        os.remove("logs/sent.log")
-        os.remove("logs/notsent.log")
-    except FileNotFoundError:
-        pass
-    except Exception as e:
-        raise e
+    remove_file("logs/logs.log")
+    remove_file("logs/sent.log")
+    remove_file("logs/notsent.log")
 
 
 def clean_logs_and_uuids(config: dict):
@@ -25,15 +19,18 @@ def clean_logs_and_uuids(config: dict):
         emails_file = json.load(mails_json)
         for record in emails_file:
             record['uuid'] = ''
-        json.dump(emails_file, open(f"data/{config['mails_json_file']}", "w"), indent=2)
+        json.dump(
+            emails_file,
+            open(f"data/{config['mails_json_file']}", "w"), indent=2)
 
-    utils.flush_file("logs/sent.log")
-    utils.flush_file("logs/notsent.log")
+    remove_file("logs/sent.log")
+    remove_file("logs/notsent.log")
 
 
-def flush_file(filename: str):
+def remove_file(filename: str):
     try:
-        open(filename, "w").close()
+        # open(filename, "w").close()
+        os.remove(filename)
 
     except FileNotFoundError:
         pass
