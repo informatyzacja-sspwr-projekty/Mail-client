@@ -1,6 +1,5 @@
 import json
 import re
-import uuid
 
 
 def convert_file_to_dict_list(filename: str) -> list:
@@ -11,12 +10,12 @@ def convert_file_to_dict_list(filename: str) -> list:
     pattern_mail = re.compile("mail:", re.IGNORECASE)
 
     try:
-        with open(filename, "rt") as file:
+        with open(filename, "r") as file:
             for line in file:
                 if pattern_mail.search(line):
                     email = line.split()[1]
-                    users_data.append(
-                        {"mail": email, "uuid": str(uuid.uuid4())})
+                    users_data.append({"mail": email})
+
     except FileNotFoundError:
         raise FileNotFoundError(f"File {filename} wasn't found")
 

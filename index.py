@@ -3,17 +3,7 @@ import argparse
 import os
 from os.path import exists
 
-from src import mail_sender, mails_to_json, utils
-
-
-def convert_mails(txt_filename: str, json_filename: str):
-    """Converts mails from txt file to JSON file."""
-
-    mails_to_json.convert_file_to_json(
-        f"data/{txt_filename}", f"data/{json_filename}")
-
-    print("E-mails converted!")
-    utils.log(f"{utils.current_time()} e-mails converted")
+from src import mail_sender, utils
 
 
 def send_mails(config: dict):
@@ -81,6 +71,7 @@ def main():
         print("Logs and UUIDs cleaned")
 
     elif args.generate:
+        utils.convert_mails(config["mails_txt_file"], config["mails_json_file"])
         utils.generate_uuids(config)
         print("New UUIDs generated")
 
