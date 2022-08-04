@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 from os.path import exists
 from src import mail_sender, mails_to_json, utils
-from src.mail_receiver import MailReceiver
 
 
 def convert_mails(txt_filename: str, json_filename: str):
@@ -36,8 +35,9 @@ def send_mails(config: dict):
 
                 return
 
-    mail_receivers = map(lambda x: MailReceiver(x), users_data)
+    mail_receivers = utils.read_json(f"data/{config['mails_json_file']}")
     mail_sender.send_mails(config, mail_receivers)
+
     print("Mails have been sent!")
     utils.log(f"{utils.current_time()} Mails sent")
 
@@ -55,7 +55,6 @@ if __name__ == "__main__":
     config = utils.load_config()
 
     utils.setup_dirs()
-    #utils.clear_logs()
 
     convert_mails(config["mails_txt_file"], config["mails_json_file"])
     send_mails(config)
