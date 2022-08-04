@@ -45,7 +45,6 @@ def send_mail_with_attachments(config: dict) -> None:
 def send_emails(config: dict) -> None:
     """Sends e-mails, skips those addresses which already received a message."""
 
-    # Send emails:
     if os.path.getsize(f"data/{config['mails_json_file']}") > 0:
         send_mails(config)
         send_mail_with_attachments(config)
@@ -62,7 +61,8 @@ def main() -> None:
                         help='clean logs and UUIDs of the handled e-mail addresses')
     parser.add_argument('-g', '--generate', dest='generate', action='store_true',
                         help='generate new UUIDs for each e-mail account')
-    parser.add_argument('-s', '--send', dest='send', action='store_true', help='send a message for each e-mail account')
+    parser.add_argument('-s', '--send', dest='send', action='store_true',
+                        help='send a message for each e-mail account')
 
     args = parser.parse_args()
 
@@ -71,7 +71,8 @@ def main() -> None:
         print("Logs and UUIDs cleaned")
 
     elif args.generate:
-        utils.convert_mails(config["mails_txt_file"], config["mails_json_file"])
+        utils.convert_mails(config["mails_txt_file"],
+                            config["mails_json_file"])
         utils.generate_uuids(config)
         print("New UUIDs generated")
 

@@ -8,16 +8,6 @@ from typing import Any
 from . import mails_to_json
 
 
-def convert_mails(txt_filename: str, json_filename: str) -> None:
-    """Converts mails from txt file to JSON file."""
-
-    mails_to_json.convert_file_to_json(
-        f"data/{txt_filename}", f"data/{json_filename}")
-
-    print("E-mails converted!")
-    log(f"{current_time()} e-mails converted")
-
-
 def clean_logs_and_uuids(config: dict) -> None:
     """Replaces UUID with an empty string for every record in mails.json and cleans logs."""
 
@@ -39,21 +29,39 @@ def clean_logs_and_uuids(config: dict) -> None:
     remove_file("logs/notsent.log")
 
 
-def remove_file(filename: str) -> None:
-    try:
-        os.remove(filename)
+def convert_mails(txt_filename: str, json_filename: str) -> None:
+    """Converts mails from txt file to JSON file."""
 
-    except FileNotFoundError:
-        pass
+    mails_to_json.convert_file_to_json(
+        f"data/{txt_filename}", f"data/{json_filename}")
 
-    except Exception as e:
-        raise e
+    print("E-mails converted!")
+    log(f"{current_time()} e-mails converted")
 
 
 def current_time() -> str:
     """Returns current time."""
 
     return datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+
+
+def generate_uuids(config: dict) -> None:
+    """Generates a JSON with new UUIDs for each record in mails.json."""
+
+    file_path = f"data/{config['mails_json_file']}"
+
+    emails_json = []
+
+    with open(file_path, mode="r+", encoding="utf8") as file:
+        emails_json = json.load(file)
+
+        file.seek(0)
+        file.truncate()
+
+        for record in emails_json:
+            record['uuid'] = str(uuid.uuid4())
+
+        json.dump(emails_json, file, indent=2)
 
 
 def load_config(filename: str = "config.json") -> Any:
@@ -85,6 +93,18 @@ def read_json(filename: str) -> Any:
         raise FileNotFoundError(f"JSON file {filename} wasn't found")
 
 
+def remove_file(filename: str) -> None:
+    """Removes file"""
+    try:
+        os.remove(filename)
+
+    except FileNotFoundError:
+        pass
+
+    except Exception as e:
+        raise e
+
+
 def setup_dirs() -> None:
     """Creates needed dirs if it doesn't exist"""
 
@@ -93,22 +113,3 @@ def setup_dirs() -> None:
         os.makedirs("logs")
     except FileExistsError:
         pass
-
-
-def generate_uuids(config: dict) -> None:
-    """Generates a JSON with new UUIDs for each record in mails.json."""
-
-    file_path = f"data/{config['mails_json_file']}"
-
-    emails_json = []
-
-    with open(file_path, mode="r+", encoding="utf8") as file:
-        emails_json = json.load(file)
-
-        file.seek(0)
-        file.truncate()
-
-        for record in emails_json:
-            record['uuid'] = str(uuid.uuid4())
-
-        json.dump(emails_json, file, indent=2)
