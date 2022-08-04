@@ -3,11 +3,12 @@ import json
 import os
 import uuid
 from os.path import exists
+from typing import Any
 
 from . import mails_to_json
 
 
-def convert_mails(txt_filename: str, json_filename: str):
+def convert_mails(txt_filename: str, json_filename: str) -> None:
     """Converts mails from txt file to JSON file."""
 
     mails_to_json.convert_file_to_json(
@@ -17,7 +18,7 @@ def convert_mails(txt_filename: str, json_filename: str):
     log(f"{current_time()} e-mails converted")
 
 
-def clean_logs_and_uuids(config: dict):
+def clean_logs_and_uuids(config: dict) -> None:
     """Replaces UUID with an empty string for every record in mails.json and cleans logs."""
 
     file_path = f"data/{config['mails_json_file']}"
@@ -38,7 +39,7 @@ def clean_logs_and_uuids(config: dict):
     remove_file("logs/notsent.log")
 
 
-def remove_file(filename: str):
+def remove_file(filename: str) -> None:
     try:
         os.remove(filename)
 
@@ -55,26 +56,26 @@ def current_time() -> str:
     return datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
 
-def load_config(filename: str = "config.json"):
+def load_config(filename: str = "config.json") -> Any:
     """Returns config file as a list of dictionaries."""
 
     return read_json(f"config/{filename}")
 
 
-def log(text: str):
+def log(text: str) -> None:
     """Logs to log file"""
 
     log_to_file("logs.log", text)
 
 
-def log_to_file(filename: str, text: str):
+def log_to_file(filename: str, text: str) -> None:
     """Logs to the chosen file"""
 
     with open(f"logs/{filename}", 'a') as logs:
         logs.write(f"{text}\n")
 
 
-def read_json(filename: str):
+def read_json(filename: str) -> Any:
     """Reads a JSON file and returns it as a list of dictionaries."""
 
     try:
@@ -84,7 +85,7 @@ def read_json(filename: str):
         raise FileNotFoundError(f"JSON file {filename} wasn't found")
 
 
-def setup_dirs():
+def setup_dirs() -> None:
     """Creates needed dirs if it doesn't exist"""
 
     try:
@@ -94,7 +95,7 @@ def setup_dirs():
         pass
 
 
-def generate_uuids(config: dict):
+def generate_uuids(config: dict) -> None:
     """Generates a JSON with new UUIDs for each record in mails.json."""
 
     file_path = f"data/{config['mails_json_file']}"

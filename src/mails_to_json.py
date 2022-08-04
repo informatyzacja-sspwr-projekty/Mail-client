@@ -22,14 +22,14 @@ def convert_file_to_dict_list(filename: str) -> list:
     return users_data
 
 
-def convert_dict_list_to_json(users_data: list, filename: str):
+def convert_dict_list_to_json(users_data: list, filename: str) -> None:
     """Converts a list of dictionaries into a JSON file."""
 
     with open(filename, "w") as file:
         json.dump(users_data, file, indent=2)
 
 
-def convert_file_to_json(filename: str, json_filename: str):
+def convert_file_to_json(filename: str, json_filename: str) -> None:
     """Converts a file with users and email addresses into a JSON file."""
 
     users_data = convert_file_to_dict_list(filename)

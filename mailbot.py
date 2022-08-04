@@ -6,7 +6,7 @@ from os.path import exists
 from src import mail_sender, utils
 
 
-def send_mails(config: dict):
+def send_mails(config: dict) -> None:
     """Prepares users' data and sends mails to receivers."""
 
     users_data = utils.read_json(f"data/{config['mails_json_file']}")
@@ -33,7 +33,7 @@ def send_mails(config: dict):
     utils.log(f"{utils.current_time()} e-mails sent")
 
 
-def send_mail_with_attachments(config: dict):
+def send_mail_with_attachments(config: dict) -> None:
     """Sends mail with results of bot usage to original sender"""
 
     mail_sender.send_mail_with_attachments(config)
@@ -42,7 +42,7 @@ def send_mail_with_attachments(config: dict):
     utils.log(f"{utils.current_time()} e-mail with attachments sent")
 
 
-def send_emails(config: dict):
+def send_emails(config: dict) -> None:
     """Sends e-mails, skips those addresses which already received a message."""
 
     # Send emails:
@@ -51,7 +51,7 @@ def send_emails(config: dict):
         send_mail_with_attachments(config)
 
 
-def main():
+def main() -> None:
     config = utils.load_config()
 
     utils.setup_dirs()

@@ -18,7 +18,7 @@ def message_replace(mail: str, uuid: str, confirm_link: str, date: str, message:
     return message
 
 
-def send_mail_with_attachments(config: dict):
+def send_mail_with_attachments(config: dict) -> None:
     """Sends mail with attachment to the sender"""
 
     sender_mail = config["mail"]
@@ -73,7 +73,7 @@ def send_mail_with_attachments(config: dict):
     return
 
 
-def send_mails(config: dict, receivers: map):
+def send_mails(config: dict, receivers: map) -> None:
     """Sends mails to given receivers, with a given link."""
 
     print("Sending...")
