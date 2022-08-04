@@ -23,13 +23,16 @@ def clean_logs_and_uuids(config: dict):
     file_path = f"data/{config['mails_json_file']}"
 
     if exists(file_path):
-        with open(file_path, encoding="utf8") as mails_json:
-            emails_file = json.load(mails_json)
+        with open(file_path, mode="r+", encoding="utf8") as file:
+            mails_json = json.load(file)
 
-            for record in emails_file:
+            file.seek(0)
+            file.truncate()
+
+            for record in mails_json:
                 record['uuid'] = ''
 
-            json.dump(emails_file, mails_json, indent=2)
+            json.dump(mails_json, file, indent=2)
 
     remove_file("logs/sent.log")
     remove_file("logs/notsent.log")
