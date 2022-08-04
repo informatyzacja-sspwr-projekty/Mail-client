@@ -2,7 +2,6 @@ import datetime
 import json
 import os
 import uuid
-from os.path import exists
 from typing import Any
 
 from . import mails_to_json
@@ -43,7 +42,7 @@ def generate_uuids(config: dict) -> None:
     replace_json_property(file_path, 'uuid', str(uuid.uuid4()))
 
 
-def load_config(filename: str = "config.json") -> Any:
+def load_config(filename: str = "config.json") -> list:
     """Returns config file as a list of dictionaries."""
 
     return read_json(f"config/{filename}")
@@ -76,10 +75,8 @@ def remove_file(filename: str) -> None:
     """Removes file"""
     try:
         os.remove(filename)
-
     except FileNotFoundError:
         pass
-
     except Exception as e:
         raise e
 
@@ -88,7 +85,7 @@ def replace_json_property(filename: str, property: str, to_replace: str) -> None
     """Replaces all occurrences of property in every record of objects list in json"""
 
     try:
-        mails_json = read_json(filename)
+        mails_json: list = read_json(filename)
 
         for record in mails_json:
             record[property] = to_replace

@@ -9,12 +9,12 @@ from src import mail_sender, utils
 def send_mails(config: dict) -> None:
     """Prepares users' data and sends mails to receivers."""
 
-    users_data = utils.read_json(f"data/{config['mails_json_file']}")
+    users_data: list = utils.read_json(f"data/{config['mails_json_file']}")
 
-    if exists(f"logs/sent.log"):
+    if exists("logs/sent.log"):
         all_mails = [sub['mail'] for sub in users_data]
 
-        with open(f"logs/sent.log") as file:
+        with open("logs/sent.log") as file:
             log_mails = file.readlines()
             sent_mails = [line.rstrip() for line in log_mails]
             diff = list(set(all_mails) - set(sent_mails))
