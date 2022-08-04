@@ -28,15 +28,13 @@ def send_mails(config: dict):
 
             if diff:
                 users_data = [x for x in users_data if x['mail'] in diff]
-
             else:
                 print("No new mails have been sent!")
                 utils.log(f"{utils.current_time()} No new mails sent")
 
                 return
 
-    mail_receivers = utils.read_json(f"data/{config['mails_json_file']}")
-    mail_sender.send_mails(config, mail_receivers)
+    mail_sender.send_mails(config, users_data)
 
     print("Mails have been sent!")
     utils.log(f"{utils.current_time()} Mails sent")
