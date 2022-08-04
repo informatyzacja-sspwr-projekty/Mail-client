@@ -4,14 +4,6 @@ import os
 import uuid
 
 
-def clear_logs():
-    """Clears log files of emails sent and not sent"""
-
-    remove_file("logs/logs.log")
-    remove_file("logs/sent.log")
-    remove_file("logs/notsent.log")
-
-
 def clean_logs_and_uuids(config: dict):
     """Replaces UUID with an empty string for every record in mails.json and cleans logs."""
 
@@ -29,7 +21,6 @@ def clean_logs_and_uuids(config: dict):
 
 def remove_file(filename: str):
     try:
-        # open(filename, "w").close()
         os.remove(filename)
 
     except FileNotFoundError:
