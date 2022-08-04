@@ -7,7 +7,7 @@
   "mails_json_file": "mails.json",
   "subject": "[EWIDENCJA][SSPWR][MAIL] Komunikat",
   "mail_template": "mail_template.txt",
-  "date": "30.07.2022"
+  "date": "30.07.2022",
   "attachments_subject": "[EWIDENCJA][SSPWR][MAIL] Wyniki",
   "attachment_mail_text": "logs from mailbot",
   "confirm_link": "http://ewidencjamaili.samorzad.pwr.edu.pl/?uuid="
