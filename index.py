@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 import os
+from os.path import exists
 
 from src import mail_sender, mails_to_json, utils
 
@@ -20,7 +21,7 @@ def send_mails(config: dict):
 
     users_data = utils.read_json(f"data/{config['mails_json_file']}")
 
-    if os.exists(f"logs/sent.log"):
+    if exists(f"logs/sent.log"):
         all_mails = [sub['mail'] for sub in users_data]
 
         with open(f"logs/sent.log") as file:
