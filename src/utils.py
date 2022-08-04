@@ -13,17 +13,7 @@ def clean_logs_and_uuids(config: dict) -> None:
 
     file_path = f"data/{config['mails_json_file']}"
 
-    if exists(file_path):
-        with open(file_path, mode="r+", encoding="utf8") as file:
-            mails_json = json.load(file)
-
-            file.seek(0)
-            file.truncate()
-
-            for record in mails_json:
-                record['uuid'] = ''
-
-            json.dump(mails_json, file, indent=2)
+    replace_json_property(file_path, 'uuid', '')
 
     remove_file("logs/sent.log")
     remove_file("logs/notsent.log")
@@ -50,18 +40,7 @@ def generate_uuids(config: dict) -> None:
 
     file_path = f"data/{config['mails_json_file']}"
 
-    emails_json = []
-
-    with open(file_path, mode="r+", encoding="utf8") as file:
-        emails_json = json.load(file)
-
-        file.seek(0)
-        file.truncate()
-
-        for record in emails_json:
-            record['uuid'] = str(uuid.uuid4())
-
-        json.dump(emails_json, file, indent=2)
+    replace_json_property(file_path, 'uuid', str(uuid.uuid4()))
 
 
 def load_config(filename: str = "config.json") -> Any:
@@ -103,6 +82,23 @@ def remove_file(filename: str) -> None:
 
     except Exception as e:
         raise e
+
+
+def replace_json_property(filename: str, property: str, to_replace: str) -> None:
+    """Replaces all occurrences of property in every record of objects list in json"""
+
+    try:
+        mails_json = read_json(filename)
+
+        for record in mails_json:
+            record[property] = to_replace
+
+        # we don't need to check if file exists - if not then exception is raised by read_json
+        with open(filename, mode="w", encoding="utf8") as file:
+            json.dump(mails_json, file, indent=2)
+
+    except FileNotFoundError:
+        pass
 
 
 def setup_dirs() -> None:
