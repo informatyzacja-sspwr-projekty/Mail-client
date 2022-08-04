@@ -3,28 +3,43 @@ import argparse
 import os
 
 from src import mail_sender, mails_to_json, utils
-from src.mail_receiver import MailReceiver
 
 
 def convert_mails(txt_filename: str, json_filename: str):
     """Converts mails from txt file to JSON file."""
 
-    mails_to_json.convert_file_to_json(f"data/{txt_filename}", f"data/{json_filename}")
+    mails_to_json.convert_file_to_json(
+        f"data/{txt_filename}", f"data/{json_filename}")
 
-    print("E-Mails converted!")
-    utils.log(f"{utils.current_time()} E-Mails converted")
+    print("E-mails converted!")
+    utils.log(f"{utils.current_time()} e-mails converted")
 
 
 def send_mails(config: dict):
     """Prepares users' data and sends mails to receivers."""
 
     users_data = utils.read_json(f"data/{config['mails_json_file']}")
-    mail_receivers = map(lambda x: MailReceiver(x), users_data)
 
-    mail_sender.send_mails(config, mail_receivers)
+    if os.exists(f"logs/sent.log"):
+        all_mails = [sub['mail'] for sub in users_data]
 
-    # print("E-Mails have been sent!")
-    utils.log(f"{utils.current_time()} E-Mails sent")
+        with open(f"logs/sent.log") as file:
+            log_mails = file.readlines()
+            sent_mails = [line.rstrip() for line in log_mails]
+            diff = list(set(all_mails) - set(sent_mails))
+
+            if diff:
+                users_data = [x for x in users_data if x['mail'] in diff]
+            else:
+                print("No new e-mails have been sent!")
+                utils.log(f"{utils.current_time()} No new e-mails sent")
+
+                return
+
+    mail_sender.send_mails(config, users_data)
+
+    print("E-mails have been sent!")
+    utils.log(f"{utils.current_time()} e-mails sent")
 
 
 def send_mail_with_attachments(config: dict):
@@ -32,8 +47,8 @@ def send_mail_with_attachments(config: dict):
 
     mail_sender.send_mail_with_attachments(config)
 
-    print("Mail with attachments have been sent!")
-    utils.log(f"{utils.current_time()} Mail with attachments sent")
+    print("E-mails with attachments have been sent!")
+    utils.log(f"{utils.current_time()} e-mail with attachments sent")
 
 
 def send_emails(config: dict):
@@ -41,15 +56,15 @@ def send_emails(config: dict):
 
     # Send emails:
     if os.path.getsize(f"data/{config['mails_json_file']}") > 0:
-        config = utils.load_config()
-
-        utils.setup_dirs()
-
         send_mails(config)
         send_mail_with_attachments(config)
 
 
 def main():
+    config = utils.load_config()
+
+    utils.setup_dirs()
+
     parser = argparse.ArgumentParser(description='Handles sending emails')
 
     parser.add_argument('-c', '--clean', dest='clean', action='store_true',
@@ -59,8 +74,6 @@ def main():
     parser.add_argument('-s', '--send', dest='send', action='store_true', help='send a message for each e-mail account')
 
     args = parser.parse_args()
-
-    config = utils.load_config()
 
     if args.clean:
         utils.clean_logs_and_uuids(config)

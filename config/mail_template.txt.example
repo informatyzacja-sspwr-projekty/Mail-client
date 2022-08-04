@@ -1,4 +1,4 @@
-Drogi użytkowniku {user},
+Drogi użytkowniku o adresie mailowym {mail},
 
 aby potwierdzić korzystanie ze skrzynki samorządowej, kliknij w poniższy link:
 
@@ -6,7 +6,7 @@ aby potwierdzić korzystanie ze skrzynki samorządowej, kliknij w poniższy link
 
 Możesz też odpowiedzieć na tę wiadomość.
 
-Brak aktywności do 12.12.2021r 23:59, skutkuje rozpoczęciem procesu dezaktywacji konta.
+Brak aktywności do {date}, skutkuje rozpoczęciem procesu dezaktywacji konta.
 
 --
 Ze studenckimi pozdrowieniami
