@@ -101,8 +101,5 @@ def replace_json_property(filename: str, property: str, to_replace: str) -> None
 def setup_dirs() -> None:
     """Creates needed dirs if it doesn't exist"""
 
-    try:
-        os.makedirs("data")
-        os.makedirs("logs")
-    except FileExistsError:
-        pass
+    os.makedirs("data", exist_ok=True)
+    os.makedirs("logs", exist_ok=True)
