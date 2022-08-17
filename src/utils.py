@@ -39,7 +39,18 @@ def generate_uuids(config: dict) -> None:
 
     file_path = f"data/{config['mails_json_file']}"
 
-    replace_json_property(file_path, 'uuid', str(uuid.uuid4()))
+    try:
+        mails_json: list = read_json(file_path)
+
+        for record in mails_json:
+            record['uuid'] = str(uuid.uuid4())
+
+        # we don't need to check if file exists - if not then exception is raised by read_json
+        with open(file_path, mode="w", encoding="utf8") as file:
+            json.dump(mails_json, file, indent=2)
+
+    except FileNotFoundError:
+        pass
 
 
 def load_config(filename: str = "config.json") -> list:
